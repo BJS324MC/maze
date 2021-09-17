@@ -12,45 +12,20 @@ map=false;
 
 let point=new Point(401,260.5),
 prev=new Point();
-objects=[new Rectangle(0,0,400,100,"red"),new Rectangle(600,100,200,120,"yellow"),
-new Rectangle(200,200,200,60,"blue")];
 function frame(){
   ctx.clearRect(0,0,innerWidth,innerHeight);
   ctx.strokeStyle = "red";
-  objects.forEach(b => {
-    if(b.w)ctx.strokeRect(b.x, b.y, b.w, b.h);
-    else{
-      ctx.beginPath();
-      ctx.arc(b.x,b.y,b.r,0,PI*2);
-      ctx.stroke();
-    }
-  });
   drawPoint(point);
-  /*let og=cast(point,objects,angled)[0];
-  fov=cov*2*innerWidth/hypot(point.y-og.y,point.x-og.x);*/
   let lines=[];
   for(let a=angled-fov/2;a<angled+fov/2;a+=ln){
-    let res=cast(point,objects,a),
-        casted=res[0],
-        color=res[1];//console.log(casted);
+    let casted=cast(point,objects,a);
     if(casted.x===point.x && casted.y===point.y){
       point.x=prev.x;
       point.y=prev.y;
-      res=cast(point,objects,a);
-      casted = res[0];
-      color = res[1];
+      casted=cast(point,objects,a);
     };
-    //drawPoint(casted,"blue")
     drawLine(point,casted);
-    lines.push(
-         [hypot(point.y-casted.y,point.x-casted.x)*cos(PI/180*(angled-a)),color]
-    );
-    /*casted[1].forEach(b=>{
-      ctx.strokeStyle="grey"
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-      ctx.stroke();
-    })*/
+    lines.push(hypot(point.y-casted.y,point.x-casted.x)*cos(PI/180*(angled-a)));
   };
   prev.x = point.x;
   prev.y = point.y;
