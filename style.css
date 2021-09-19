@@ -1,4 +1,11 @@
 body {
     font-size: 15pt;
     margin:0;
+    position: fixed;
+}
+#map{
+  border-radius: 50%;
+  position: fixed;
+  top:5%;
+  right:10%;
 }
