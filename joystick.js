@@ -27,16 +27,19 @@ class Joystick {
     canvas.addEventListener("touchend", e => this.end(e));
   }
   start(e) {
+    e.preventDefault();
     this.dx = e.targetTouches[0].clientX;
     this.dy = e.targetTouches[0].clientY;
     this.draw();
   }
   move(e) {
+    e.preventDefault();
     this.dx = Math.max(Math.min(e.targetTouches[0].clientX, this.x + this.size * 0.75), this.x + this.size * 0.25);
     this.dy = Math.max(Math.min(e.targetTouches[0].clientY, this.y + this.size * 0.75), this.y + this.size * 0.25);
     this.draw();
   }
   end(e) {
+    e.preventDefault();
     this.dx = this.x + this.size / 2;
     this.dy = this.y + this.size / 2;
     this.draw();
