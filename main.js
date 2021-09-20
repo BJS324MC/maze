@@ -52,7 +52,7 @@ var angled = 0,
   bobY = 0,
   bobActive = false,
   ln = 0.5,
-  deezlay=started+1200000,
+  deezlay=started+120000,
   renderDis = 2;
 grid.forEach(a => {
   a.unshift(0);
@@ -127,9 +127,9 @@ function frame() {
     let dir2 = slider.GetDir();
     if (dir2 === "L") CONTROLS.j(2);
     else if (dir2 === "R") CONTROLS.l(2);
-    for (let i in ACTIVE)
-      if (ACTIVE[i] === true) CONTROLS[i](2);
   }
+  for (let i in ACTIVE)
+    if (ACTIVE[i] === true) CONTROLS[i](2);
   drawView(lines.reverse());
   ctx.fillStyle = "white";
   ctx.font = "20px monospace";
@@ -238,4 +238,8 @@ addEventListener("keyup", e => {
   if (key in ACTIVE) ACTIVE[key] = false;
 })
 solve(grid,[1,1],[103,103]);
+//for(let i=0;i<18;i++)CONTROLS.l();
+
 frame();
+//generatePath(correctPath);
+//framePath()
