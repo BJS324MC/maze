@@ -44,7 +44,7 @@ grass.addColorStop(1, "black");
 
 var angled = 0,
   started=Date.now(),
-  grid = maze(Array(23).fill(0).map(a => Array(23).fill(0))),
+  grid = maze(Array(103).fill(0).map(a => Array(103).fill(0))),
   cellSize = 20,
   fov = 120,
   cov = fov,
@@ -52,6 +52,7 @@ var angled = 0,
   bobY = 0,
   bobActive = false,
   ln = 0.5,
+  deezlay=started+1200000,
   renderDis = 2;
 grid.forEach(a => {
   a.unshift(0);
@@ -87,6 +88,12 @@ function frame() {
   mapx.translate(100 - point.x, 100 - point.y);
   mapx.fillStyle = "black";
   grid.forEach((a, i) => a.forEach((b, j) => b === 0 ? mapx.fillRect(i * cellSize, j * cellSize, cellSize, cellSize) : 0));
+  mapx.strokeStyle="yellow";
+  if(deezlay < Date.now()){
+  mapx.beginPath();
+  mapx.moveTo(cellSize*1.5,cellSize*1.5);
+  correctPath.forEach(a=>mapx.lineTo(a[0]*cellSize+cellSize/2,a[1]*cellSize+cellSize/2));
+  mapx.stroke();}
   mapx.strokeStyle = "red";
   drawPoint(point);
   let lines = [];
@@ -230,4 +237,5 @@ addEventListener("keyup", e => {
   const key = e.key.toLowerCase();
   if (key in ACTIVE) ACTIVE[key] = false;
 })
+solve(grid,[1,1],[103,103]);
 frame();
